@@ -8,6 +8,7 @@
     "version": "1.0.0",
 
     "keywords": [
+        "http",
         "proxy"
     ],
 
@@ -25,7 +26,8 @@
     },
 
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "davamigo/simple-http-client": "~1"
     },
 
     "require-dev": {
@@ -44,5 +46,10 @@
             "Davamigo\\": "src/",
             "Test\\": "test/"
         }
-    }
+    },
+
+    "repositories": [{
+        "type": "vcs",
+        "url":  "git@github.com:davamigo/simple-http-client.git"
+    }]
 }

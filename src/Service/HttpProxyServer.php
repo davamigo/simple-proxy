@@ -1,9 +1,11 @@
 <?php
+
 namespace Davamigo\Service;
 
 use Davamigo\HttpClient\CurlHttpClient\CurlHttpClient;
 use Davamigo\HttpClient\Domain\HttpClient;
 use Davamigo\HttpClient\Domain\HttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class HttpProxyServer
@@ -29,29 +31,34 @@ class HttpProxyServer
     /**
      * Redirect to URL
      *
-     * @param string $url
-     * @param string $method
-     * @param string $userAgent
-     * @param array  $params
-     * @param array  $options
-     * @param array  $headers
-     * @return string|null
+     * @param RequestReaderService $request
+     * @param array $aditionalOptions
+     * @param array $aditionalHeaders
+     * @return Response
      * @throws HttpException
      */
-    public function redirect($url, $method = 'get', $userAgent = null, array $params = array(), array $options = array(), array $headers = array())
+    public function redirect(RequestReaderService $request, array $aditionalOptions = array(), array $aditionalHeaders = array())
     {
-        $url .= '?' . implode('&', array_map(
-            function ($param, $value) { return $param . '=' . urlencode($value); },
-            array_keys($params),
-            array_values($params))
-        );
-
+        $userAgent = $request->getUserAgent();
         $this->httpClient->setUserAgent($userAgent ?: null);
 
-        $request = $this->httpClient->createRequest($url, $method, $headers, null, $options);
+        $url = $request->getUrl();
+        $method = $request->getMethod();
+        $options = $aditionalOptions + array(
+            CURLOPT_FOLLOWLOCATION  => true,
+            CURLOPT_MAXREDIRS       => 5,
+            CURLOPT_TIMEOUT         => 30
+        );
+        $headers = $aditionalHeaders;
 
-        $response = $request->send();
+        $body = null;
+        if ($method == 'POST') {
+            $body = $request->getBody();
+        }
 
-        return $response->getBody(true);
+        $request = $this->httpClient->createRequest($url, $method, $headers, $body, $options);
+        $response = $this->httpClient->send($request);
+
+        return new Response($response->getBody(), $response->getStatusCode(), $response->getHeaderLines());
     }
 }

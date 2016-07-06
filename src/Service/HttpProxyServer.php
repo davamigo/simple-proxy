@@ -37,8 +37,11 @@ class HttpProxyServer
      * @return Response
      * @throws HttpException
      */
-    public function redirect(RequestReaderService $request, array $aditionalOptions = array(), array $aditionalHeaders = array())
-    {
+    public function execute(
+        RequestReaderService $request,
+        array $aditionalOptions = array(),
+        array $aditionalHeaders = array()
+    ) {
         $userAgent = $request->getUserAgent();
         $this->httpClient->setUserAgent($userAgent ?: null);
 

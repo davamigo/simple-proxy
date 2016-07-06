@@ -12,8 +12,7 @@ $request = Request::createFromGlobals();
 try {
     $requestReader = new RequestReaderService($request);
     $proxyServer = new HttpProxyServer();
-    $response = $proxyServer->redirect($requestReader);
-
+    $response = $proxyServer->execute($requestReader);
 } catch (\Exception $exc) {
     $msg = $exc->getMessage();
     if ($exc->getCode()) {

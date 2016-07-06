@@ -138,8 +138,6 @@ class RequestReaderService
             $url .= ':' . $this->port;
         }
 
-        $url .= '/';
-
         if ($this->path) {
             $url .= $this->path;
         }

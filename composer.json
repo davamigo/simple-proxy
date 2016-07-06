@@ -44,9 +44,14 @@
 
     "autoload": {
         "psr-4": {
-            "Davamigo\\": "src/",
-            "Test\\": "test/"
+            "Davamigo\\": "src/"
         }
+    },
+
+    "autoload-dev": {
+      "psr-4": {
+          "Test\\": "test/"
+      }
     },
 
     "repositories": [{

@@ -36,6 +36,7 @@ class HttpProxyServer
      * @param array $aditionalHeaders
      * @return Response
      * @throws HttpException
+     * @throws HttpProxyException
      */
     public function execute(
         RequestReaderService $request,
@@ -54,14 +55,28 @@ class HttpProxyServer
         );
         $headers = $aditionalHeaders;
 
-        $body = null;
-        if ($method == 'POST') {
-            $body = $request->getBody();
+        switch (strtoupper($method)) {
+            case 'GET':
+                $request = $this->httpClient->get($url, $headers, $options);
+                break;
+
+            case 'POST':
+                $postBody = $request->getBody();
+                $request = $this->httpClient->post($url, $headers, $postBody, $options);
+                break;
+
+            default:
+                throw new HttpProxyException('Invalid method ' . $method);
         }
 
-        $request = $this->httpClient->createRequest($url, $method, $headers, $body, $options);
         $response = $this->httpClient->send($request);
+        $content = $response->getBody();
+        if (!$content) {
+            $content = null;
+        }
+        $status = $response->getStatusCode();
+        $headers = $response->getHeaderLines();
 
-        return new Response($response->getBody(), $response->getStatusCode(), $response->getHeaderLines());
+        return new Response($content, $status, $headers);
     }
 }

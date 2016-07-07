@@ -19,6 +19,25 @@ try {
         $msg = $exc->getCode() . ' ' . $msg;
     }
 
+    $examples = array(
+        array(
+            'url'       => 'https://www.amazon.com/'
+        ),
+        array(
+            'url'       => 'https://api.github.com/repos/davamigo/simple-proxy',
+            'agent'     => 'Mozilla/5.0'
+        ),
+        array(
+            'url'       => 'http://www.timeapi.org/utc/now/',
+            'agent'     => 'Mozilla/5.0',
+            'method'    => 'get'
+        ),
+        array(
+            'url'       => 'https://httpbin.org/post',
+            'method'    => 'post'
+        )
+    );
+
     $html = '<html>';
     $html .= '<head>';
     $html .= '<title>';
@@ -44,9 +63,19 @@ try {
     $html .= '<li><strong>body</strong>: The http body to use with post method';
     $html .= '</ul>';
     $html .= '<h3>Example:</h3>';
-    $html .= '<pre>';
-    $html .= $request->getUriForPath('?method=get&url=https://www.amazon.es/gp/product/B00YNM5HCC');
-    $html .= '</pre>';
+    $html .= '<ul>';
+    foreach ($examples as $example) {
+        $url = $request->getUriForPath(
+            '?url=' . $example['url'] .
+            (isset($example['method']) ? '&method=' . $example['method'] : "") .
+            (isset($example['agent']) ? '&agent=' . $example['agent'] : "")
+        );
+
+        $html .= '<li>';
+        $html .= '<a target="_blank" href="' . $url . '">' . $url . '</a>';
+        $html .= '</li>';
+    }
+    $html .= '</ul>';
     $html .= '</body>';
     $html .= '</html>';
 

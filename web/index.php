@@ -61,6 +61,8 @@ try {
     $html .= '<li><strong>query</strong>: The query to use. After the question mark ?';
     $html .= '<li><strong>hash</strong>: The hash to use. After the hashmark #';
     $html .= '<li><strong>body</strong>: The http body to use with post method';
+    $html .= '<li><strong>timeout</strong>: The amount of seconds to use as timeout';
+    $html .= '<li><strong>redirs</strong>: The maximum of redirection allowed';
     $html .= '</ul>';
     $html .= '<h3>Example:</h3>';
     $html .= '<ul>';

@@ -23,6 +23,9 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
     /** @var Request */
     private $request;
 
+    /** The number of allowed params */
+    const TOTAL_PARAMS = 12;
+
     /**
      * Setup
      */
@@ -45,7 +48,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testUrl) {
                 switch ($key) {
@@ -75,7 +78,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testUrl) {
                 switch ($key) {
@@ -104,7 +107,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testUrl, $testMethod, $testUserAgent) {
                 switch ($key) {
@@ -145,7 +148,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function (
                 $key,
@@ -197,7 +200,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testMethod) {
                 switch ($key) {
@@ -224,7 +227,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testProtocol) {
                 switch ($key) {
@@ -249,7 +252,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) {
                 switch ($key) {
@@ -273,7 +276,7 @@ class RequestReaderServiceTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject $requestMock */
         $requestMock = $this->request;
         $requestMock
-            ->expects($this->exactly(10))
+            ->expects($this->exactly(static::TOTAL_PARAMS))
             ->method('get')
             ->willReturnCallback(function ($key, $default) use ($testPort) {
                 switch ($key) {

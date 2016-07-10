@@ -48,10 +48,12 @@ class HttpProxyServer
 
         $url = $request->getUrl();
         $method = $request->getMethod();
+        $timeout = $request->getTimeout();
+        $maxRedirs = $request->getMaxRedirs();
         $options = $aditionalOptions + array(
             CURLOPT_FOLLOWLOCATION  => true,
-            CURLOPT_MAXREDIRS       => 5,
-            CURLOPT_TIMEOUT         => 30
+            CURLOPT_TIMEOUT         => $timeout,
+            CURLOPT_MAXREDIRS       => $maxRedirs
         );
         $headers = $aditionalHeaders;
 

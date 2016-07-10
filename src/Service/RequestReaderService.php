@@ -76,6 +76,20 @@ class RequestReaderService
     protected $agent = null;
 
     /**
+     * The amount of seconds to use as timeout. Ex: 60
+     *
+     * @var int $timeout
+     */
+    protected $timeout = 60;
+
+    /**
+     * The maximum of redirection allowed. Ex: 5
+     *
+     * @var int $maxRedirs
+     */
+    protected $maxRedirs = 5;
+
+    /**
      * The request object
      *
      * @var Request $request
@@ -123,6 +137,26 @@ class RequestReaderService
     public function getUserAgent()
     {
         return $this->agent;
+    }
+
+    /**
+     * Get the amount of seconds to use as timeout
+     *
+     * @return string
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * Get the maximum of redirection allowed
+     *
+     * @return string
+     */
+    public function getMaxRedirs()
+    {
+        return $this->maxRedirs;
     }
 
     /**
@@ -186,7 +220,9 @@ class RequestReaderService
             'query'     => 'query',
             'hash'      => 'hash',
             'body'      => 'body',
-            'agent'     => 'agent'
+            'agent'     => 'agent',
+            'timeout'   => 'timeout',
+            'redirs'    => 'maxRedirs'
         );
 
         foreach ($params as $param => $var) {
